@@ -19,15 +19,38 @@ namespace BookStore.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>>GetBooks()
+        //public async Task<ActionResult<IEnumerable<Book>>>GetBooks()
+        //{
+        //    var books = await _bookRepository.GetBooks();
+        //    if (books == null)
+        //    {
+        //        throw new ArgumentException("No books found.");  // This triggers 400 BadRequest via middleware
+        //    }
+        //    return Ok(books);
+        //    //return Ok(await _bookRepository.GetBooks());
+        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Book>>> GetBooks(
+            [FromQuery] string searchTerm = "",
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var books = await _bookRepository.GetBooks();
-            if (books == null)
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                return BadRequest(new { message = "Page number and page size must be greater than zero." });
+            }
+
+            var books = await _bookRepository.GetBooks(searchTerm, pageNumber, pageSize);
+
+            if (books == null || !books.Any())
             {
                 throw new ArgumentException("No books found.");  // This triggers 400 BadRequest via middleware
             }
-            return Ok(books);
-            //return Ok(await _bookRepository.GetBooks());
+
+            var totalItems = await _bookRepository.GetBooksCount(searchTerm);
+            var response = new PaginatedResponse<Book>(books, totalItems, pageNumber, pageSize);
+            return Ok(response);
+            //return Ok(books);
         }
 
         [HttpGet("{id}")]
