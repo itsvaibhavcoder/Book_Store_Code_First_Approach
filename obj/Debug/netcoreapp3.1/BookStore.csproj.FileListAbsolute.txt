@@ -67,3 +67,4 @@ C:\Users\Vaibhav\source\repos\BookStore\obj\Debug\netcoreapp3.1\BookStore.dll
 C:\Users\Vaibhav\source\repos\BookStore\obj\Debug\netcoreapp3.1\BookStore.pdb
 C:\Users\Vaibhav\source\repos\BookStore\obj\Debug\netcoreapp3.1\BookStore.genruntimeconfig.cache
 C:\Users\Vaibhav\source\repos\BookStore\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
+C:\Users\Vaibhav\source\repos\BookStore\obj\Debug\netcoreapp3.1\BookStore.sourcelink.json

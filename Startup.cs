@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BookStore.Data;
+using BookStore.Middlewares;
 using BookStore.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -48,7 +49,7 @@ namespace BookStore
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
